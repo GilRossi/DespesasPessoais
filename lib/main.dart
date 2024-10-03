@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, prefer_const_constructors, duplicate_ignore
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors, duplicate_ignore, prefer_const_literals_to_create_immutables
 
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,9 @@ class ExpemsesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final tittleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final _transactions = [
     Transaction(
       id: 't1',
@@ -38,7 +41,6 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas Pessoais'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           // ignore: sized_box_for_whitespace
@@ -62,7 +64,7 @@ class MyHomePage extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.purple,
+                          color: Colors.blue,
                           width: 2,
                         ),
                       ),
@@ -72,7 +74,7 @@ class MyHomePage extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.purple,
+                          color: Colors.blue,
                         ),
                       ),
                     ),
@@ -98,6 +100,42 @@ class MyHomePage extends StatelessWidget {
                 ),
               );
             }).toList(),
+          ),
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    controller: tittleController,
+                    decoration: InputDecoration(
+                      labelText: 'Título',
+                    ),
+                  ),
+                  TextField(
+                    controller: valueController,
+                    decoration: InputDecoration(
+                      labelText: 'Valor (R\$)',
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        child: Text(
+                          'Nova Transação',
+                        ),
+                        onPressed: () {
+                          print(tittleController.text);
+                          print(valueController.text);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),
