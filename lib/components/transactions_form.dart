@@ -1,9 +1,13 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatelessWidget {
   final tittleController = TextEditingController();
   final valueController = TextEditingController();
+
+  final void Function(String, double) onSubmit;
+
+  TransactionForm(this.onSubmit);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +37,9 @@ class TransactionForm extends StatelessWidget {
                     'Nova Transação',
                   ),
                   onPressed: () {
-                    print(tittleController.text);
-                    print(valueController.text);
+                    final title = tittleController.text;
+                    final value = double.tryParse(valueController.text) ?? 0.0;
+                    onSubmit(title, value);
                   },
                 ),
               ],
